@@ -23,27 +23,27 @@ def main():
     text = get_book_text()
     words = make_words(text)
 
-    trigrams = defaultdict(list)
+    lookup_dict = defaultdict(list)
 
-    # create trigrams
+    # create lookup_dict
     for idx in range(len(words) - 2):
         key = (words[idx], words[idx + 1])
-        trigrams[key].append(words[idx + 2])
+        lookup_dict[key].append(words[idx + 2])
 
     # find random word pair to start with
-    key = random.choice(list(trigrams))
+    key = random.choice(list(lookup_dict))
 
     new_words = []
 
     while True:
 
-        if not trigrams.get(key):
+        if not lookup_dict.get(key):
             break
 
-        word = random.choice(trigrams[key])
+        word = random.choice(lookup_dict[key])
 
         # remove this line if you would like to re-use words for longer final text
-        trigrams[key].remove(word)
+        lookup_dict[key].remove(word)
 
         new_words.extend(list(key) + [word])
 
