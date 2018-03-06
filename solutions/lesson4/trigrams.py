@@ -27,7 +27,7 @@ def main():
 
     # create trigrams
     for idx in range(len(words) - 2):
-        key = f"{words[idx]} {words[idx + 1]}"
+        key = (words[idx], words[idx + 1])
         trigrams[key].append(words[idx + 2])
 
     # find random word pair to start with
@@ -45,9 +45,9 @@ def main():
         # remove this line if you would like to re-use words for longer final text
         trigrams[key].remove(word)
 
-        new_words.extend(key.split() + [word])
+        new_words.extend(list(key) + [word])
 
-        key = " ".join(new_words[-2:])
+        key = tuple(new_words[-2:])
 
     print(" ".join(new_words))
 
