@@ -50,6 +50,8 @@ def make_new_words(lookup_dict):
 
         key = tuple(new_words[-2:])
 
+    return new_words
+
 
 def main():
     # reads file into a string
