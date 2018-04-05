@@ -19,10 +19,7 @@ def make_words(text):
     return text.replace("\n", " ").lower().split()
 
 
-def main():
-    text = get_book_text()
-    words = make_words(text)
-
+def make_lookup_dict(words):
     lookup_dict = defaultdict(list)
 
     # create lookup_dict
@@ -30,6 +27,10 @@ def main():
         key = (words[idx], words[idx + 1])
         lookup_dict[key].append(words[idx + 2])
 
+    return lookup_dict
+
+
+def make_new_words(lookup_dict):
     # find random word pair to start with
     key = random.choice(list(lookup_dict))
 
@@ -48,6 +49,20 @@ def main():
         new_words.extend(list(key) + [word])
 
         key = tuple(new_words[-2:])
+
+
+def main():
+    # reads file into a string
+    text = get_book_text()
+
+    # gets a list of words from text
+    words = make_words(text)
+
+    # create look up of word pairs to all words that follow the pair
+    lookup_dict = make_lookup_dict(words)
+
+    # create new shuffled words
+    new_words = make_new_words(lookup_dict)
 
     print(" ".join(new_words))
 
